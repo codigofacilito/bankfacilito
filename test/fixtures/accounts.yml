@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id             :integer          not null, primary key
+#  user_id        :integer          not null
+#  account_number :string
+#  account_type   :integer
+#  balance        :integer
+#  CLABE          :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+one:
+  user: one
+  account_number: MyString
+  account_type: 1
+  balance: 9.99
+  CLABE: MyString
+
+two:
+  user: two
+  account_number: MyString
+  account_type: 1
+  balance: 9.99
+  CLABE: MyString
