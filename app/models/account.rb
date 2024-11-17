@@ -13,4 +13,8 @@
 #
 class Account < ApplicationRecord
   belongs_to :user
+
+  def to_s
+    "#{account_number} - #{user}"
+  end
 end

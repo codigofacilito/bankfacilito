@@ -11,4 +11,8 @@
 #  updated_at        :datetime         not null
 #
 class User < ApplicationRecord
+
+   def to_s
+      "#{first_name} #{last_name}"
+   end
 end
