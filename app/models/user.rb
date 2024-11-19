@@ -11,6 +11,7 @@
 #  updated_at        :datetime         not null
 #
 class User < ApplicationRecord
+   has_many :accounts
 
    def to_s
       "#{first_name} #{last_name}"

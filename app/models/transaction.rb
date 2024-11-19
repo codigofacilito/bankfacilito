@@ -19,11 +19,9 @@ class Transaction < ApplicationRecord
 
   after_create :update_balances, if: :pending?
 
-
   private
 
   def update_balances
-    puts transaction_type
     return account.deposit!(amount) if deposit?
     return account.withdraw!(amount) if withdraw?
   end

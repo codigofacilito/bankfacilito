@@ -37,10 +37,8 @@ RSpec.describe Transaction, type: :model do
   }
 
   describe "#transfer!" do
-    it "transfers amount between accounts and updates balances" do
-      service = TransactionService.new
-
-      service.transfer!(first_account, second_account, 100)
+    it "transfers between accounts" do
+      first_account.transfer!(second_account, 100)
 
       # Reload accounts to reflect database changes
       first_account.reload

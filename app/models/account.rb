@@ -13,9 +13,10 @@
 #
 class Account < ApplicationRecord
   belongs_to :user
-  
-  def transfer!(recipient, amount, description=nil)
-    Transaction.transfer!(self, recipient, amount, description)
+  has_many :transactions
+
+  def transfer!(recipient_account_number, amount, description=nil)
+    TransactionService.new.transfer!(self, recipient_account_number, amount, description)
   end
 
   def withdraw!(amount)
