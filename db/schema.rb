@@ -36,7 +36,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_17_010903) do
     t.integer "account_id", null: false
     t.integer "transaction_type"
     t.decimal "amount"
-    t.integer "recipient_account_id"
     t.text "description"
     t.integer "status"
     t.datetime "created_at", null: false

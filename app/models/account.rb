@@ -13,6 +13,20 @@
 #
 class Account < ApplicationRecord
   belongs_to :user
+  
+  def transfer!(recipient, amount, description=nil)
+    Transaction.transfer!(self, recipient, amount, description)
+  end
+
+  def withdraw!(amount)
+    self.balance -= amount
+    save!
+  end
+
+  def deposit!(amount)
+    self.balance += amount
+    save!
+  end
 
   def to_s
     "#{account_number} - #{user}"

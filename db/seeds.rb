@@ -19,6 +19,6 @@ Account.find_or_create_by!(
     user_id: user.id, 
     account_number: '1234567890', 
     account_type: 1, 
-    balance: 1000, 
+    balance: 1_000_000_000, 
     CLABE: '123456789012345678'
 )
