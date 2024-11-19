@@ -42,7 +42,7 @@ group :development, :test do
   gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
   
   gem 'rspec-rails', '~> 6.0'
-  gem 'factory_bot_rails' # Optional for factories
+  gem 'factory_bot_rails'
 end
 
 

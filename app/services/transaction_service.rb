@@ -1,3 +1,8 @@
+class InvalidTransactionError < StandardError; end
+class AccountNotFoundError < StandardError; end
+class InsufficientFundsError < StandardError; end
+class InvalidAmountError < StandardError; end
+
 class TransactionService
   def transfer!(origin_account, recipient_account, amount, description = nil)
     validate_transfer(origin_account, recipient_account, amount)

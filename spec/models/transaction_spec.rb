@@ -14,27 +14,9 @@
 require 'rails_helper'
 
 RSpec.describe Transaction, type: :model do
-  let(:user) { User.create(first_name: 'Admin', last_name: 'Admin', pin_digest: '1234') }
-
-  let(:first_account) {
-    Account.create(
-      user_id: user.id,
-      account_number: '1234567890',
-      account_type: 1,
-      balance: 1_000,
-      CLABE: '123456789012345678'
-    )
-  }
-
-  let(:second_account) {
-    Account.create(
-      user_id: user.id,
-      account_number: '0987654321',
-      account_type: 1,
-      balance: 1_000,
-      CLABE: '098765432109876543'
-    )
-  }
+  let(:user) { create(:user) }
+  let(:first_account) { create(:account, user: user) }
+  let(:second_account) { create(:account, user: user) }
 
   describe "#transfer!" do
     it "transfers between accounts" do
@@ -46,6 +28,22 @@ RSpec.describe Transaction, type: :model do
 
       expect(first_account.balance).to eq(900)
       expect(second_account.balance).to eq(1_100)
+    end
+
+    it "Invalid transfer using same account" do
+      expect {
+        first_account.transfer!(second_account, 0)
+      }.to raise_error(InvalidAmountError)
+
+      expect {
+        first_account.transfer!(first_account, 100)
+      }.to raise_error(InvalidTransactionError)
+    end
+
+    it "Invalid transfer with insufficient funds" do
+      expect {
+        first_account.transfer!(second_account, 1_001)
+      }.to raise_error(InsufficientFundsError)
     end
   end
 end

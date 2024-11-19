@@ -15,6 +15,8 @@ class Account < ApplicationRecord
   belongs_to :user
   has_many :transactions
 
+  enum :account_type, [:checking, :savings]
+
   def transfer!(recipient_account_number, amount, description=nil)
     TransactionService.new.transfer!(self, recipient_account_number, amount, description)
   end
