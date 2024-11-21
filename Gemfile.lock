@@ -82,6 +82,7 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     ast (2.4.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.8)
     bootsnap (1.18.4)
@@ -288,6 +289,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate!
+  bcrypt
   bootsnap
   brakeman
   debug
