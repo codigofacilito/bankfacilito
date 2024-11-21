@@ -17,6 +17,8 @@ class Account < ApplicationRecord
 
   enum :account_type, [:checking, :savings]
 
+  validates :account_number, presence: true, uniqueness: true
+
   def transfer!(recipient_account_number, amount, description=nil)
     TransactionService.new.transfer!(self, recipient_account_number, amount, description)
   end
