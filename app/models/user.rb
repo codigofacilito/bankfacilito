@@ -13,6 +13,8 @@
 class User < ApplicationRecord
    has_many :accounts
 
+   validates :email, allow_blank: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
+
    def to_s
       "#{first_name} #{last_name}"
    end

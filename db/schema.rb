@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_17_010903) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_24_224503) do
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "account_number"
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_17_010903) do
     t.boolean "biometric_enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
   end
 
   add_foreign_key "accounts", "users"
