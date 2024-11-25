@@ -7,10 +7,9 @@ class TransactionsController < ApplicationController
 
   private
 
-  # TODO: Get user from JWT once implemented
-  # ? How do we get an account?
+  # TODO: Verify user from JWT once implemented
   def set_account
-    @account = Account.first
+    @account = Account.find_by(id: params[:account_id])
   end
 
   def set_transactions
