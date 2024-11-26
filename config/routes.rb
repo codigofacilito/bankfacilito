@@ -10,4 +10,6 @@ Rails.application.routes.draw do
 
   post 'register', to: 'users#register'
   post 'login', to: 'users#login'
+  # TODO: Move to accounts resources once available
+  get "/accounts/:account_id/transactions", controller: :transactions, action: :index
 end
