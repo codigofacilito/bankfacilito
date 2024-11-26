@@ -7,4 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # TODO: Move to accounts resources once available
+  get "/accounts/:account_id/transactions", controller: :transactions, action: :index
 end
