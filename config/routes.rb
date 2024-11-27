@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :accounts, only: %i[show create]
 
   post 'register', to: 'users#register'
   post 'login', to: 'users#login'

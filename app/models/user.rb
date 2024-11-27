@@ -22,6 +22,8 @@ class User < ApplicationRecord
 
    after_create :create_default_account
 
+   validates :email, allow_blank: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
+
    def to_s
       "#{first_name} #{last_name}"
    end
