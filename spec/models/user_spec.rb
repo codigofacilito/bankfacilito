@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                :integer          not null, primary key
+#  first_name        :string
+#  last_name         :string
+#  pin_digest        :string
+#  biometric_enabled :boolean
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  email             :string
+#
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -31,6 +44,7 @@ RSpec.describe User, type: :model do
   describe 'callbacks' do
     it 'create an account after user creation' do
       user = create(:user, email:'test@example.com', pin: '1234')
+      user.reload
       expect(user.accounts.count).to eq(1)
     end
   end

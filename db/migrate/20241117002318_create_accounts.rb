@@ -3,9 +3,8 @@ class CreateAccounts < ActiveRecord::Migration[7.2]
     create_table :accounts do |t|
       t.references :user, null: false, foreign_key: true
       t.string :account_number
-      t.integer :account_type
-      t.integer :balance
-      t.string :CLABE
+      t.integer :balance, default: 0
+      t.string :clabe
 
       t.timestamps
     end

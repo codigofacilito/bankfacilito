@@ -5,22 +5,30 @@
 #  id             :integer          not null, primary key
 #  user_id        :integer          not null
 #  account_number :string
-#  account_type   :integer
-#  balance        :integer
-#  CLABE          :string
+#  balance        :integer          default(0)
+#  clabe          :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  default        :boolean          default(FALSE)
 #
 class Account < ApplicationRecord
   belongs_to :user
   has_many :transactions
 
-  enum :account_type, [:checking, :savings]
-
+  after_create :set_default, if: :default?
+  
+  before_validation :generate_clabe
+  before_validation :generate_account_number
+  
+  validates :clabe, presence: true, uniqueness: true
   validates :account_number, presence: true, uniqueness: true
 
-  def transfer!(recipient_account_number, amount, description=nil)
+  def transfer!(recipient_account_number, amount, description = nil)
     TransactionService.new.transfer!(self, recipient_account_number, amount, description)
+  end
+  
+  def default?
+    default
   end
 
   def withdraw!(amount)
@@ -35,5 +43,23 @@ class Account < ApplicationRecord
 
   def to_s
     "#{account_number} - #{user}"
+  end
+
+  private
+
+  def set_default
+    return false unless default?
+    user.accounts.where.not(id: id).update_all(default: false)
+  end
+
+  def generate_clabe
+    self.clabe = loop do
+      random_clabe = rand(10**17..10**18 - 1).to_s
+      break random_clabe unless Account.exists?(clabe: random_clabe)
+    end
+  end
+
+  def generate_account_number
+    self.account_number = rand(10**9..10**10 - 1).to_s
   end
 end

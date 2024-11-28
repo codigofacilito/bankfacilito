@@ -5,11 +5,11 @@
 #  id             :integer          not null, primary key
 #  user_id        :integer          not null
 #  account_number :string
-#  account_type   :integer
-#  balance        :integer
-#  CLABE          :string
+#  balance        :integer          default(0)
+#  clabe          :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  default        :boolean          default(FALSE)
 #
 require "test_helper"
 

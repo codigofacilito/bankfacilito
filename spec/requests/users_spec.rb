@@ -23,7 +23,7 @@ RSpec.describe 'Users API', type: :request do
         user = User.last
         account = user.accounts.first
         expect(account).not_to be_nil
-        expect(account.balance).to eq(1000)
+        expect(account.balance).to eq(1_000)
       end
     end
 

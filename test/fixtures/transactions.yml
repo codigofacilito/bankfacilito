@@ -4,10 +4,10 @@
 #
 #  id               :integer          not null, primary key
 #  account_id       :integer          not null
-#  transaction_type :integer
-#  amount           :decimal(, )
-#  description      :text
-#  status           :integer
+#  transaction_type :integer          default("deposit")
+#  amount           :decimal(, )      default(0.0)
+#  description      :text             default("")
+#  status           :integer          default("pending")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
