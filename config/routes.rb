@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   scope :api do
     scope :v1 do
-      resources :accounts, only: %i[show create]
+      resources :accounts, only: %i[show create] do
+        resources :transactions, only: [:index, :create]
+      end
   
       post 'register', to: 'users#register'
       post 'login', to: 'users#login'
