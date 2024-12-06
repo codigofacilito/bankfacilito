@@ -2,3 +2,9 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{"first_name": "Eduardo Ismael", "last_name": "Garcia", "email": "eduardo78d@gmail.com", "pin": "1234"}' \
   http://localhost:3000/api/v1/register -i
+
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"first_name": "Eduardo Ismael", "last_name": "Garcia", "email": "eduardo78d@gmail.com", "pin": "1234"}' \
+  http://bankfacilito.xyz/api/v1/register -i
