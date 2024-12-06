@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  def index
+  end
 
   def register
     user = User.new(user_params)
