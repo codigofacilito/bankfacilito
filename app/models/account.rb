@@ -24,6 +24,7 @@ class Account < ApplicationRecord
   validates :account_number, presence: true, uniqueness: true
 
   def transfer!(recipient_account_number, amount, description = nil)
+    recipient_account = Account.find_by(account_number: recipient_account_number)
     TransactionService.new.transfer!(self, recipient_account_number, amount, description)
   end
   

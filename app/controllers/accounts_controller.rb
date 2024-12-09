@@ -24,15 +24,14 @@ class AccountsController < ApplicationController
     amount = params[:amount].to_d
     description = params[:description]
 
-    if amount <= 0
-      render json: { errors: 'El monto debe ser mayor que cero' }, status: :unprocessable_entity and return
-    end
-
     begin
       @source_account.transfer!(recipient_account_number, amount, description)
+      @recipient_account = Account.find_by(account_number: recipient_account_number)
       render :transfer, status: :ok
-    rescue ActiveRecord::RecordNotFound
+    rescue AccountNotFoundError => e
       render json: { errors: 'Cuenta receptora no encontrada' }, status: :not_found
+    rescue InvalidAmountError, InsufficientFundsError, InvalidTransactionError => e
+      render json: { errors: e.message }, status: :unprocessable_entity
     rescue StandardError => e
       render json: { errors: e.message }, status: :unprocessable_entity
     end
