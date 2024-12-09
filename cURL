@@ -13,3 +13,9 @@ curl -X POST \
   -H "Authorization: Bearer <Token>" \
   -d '{"recipient_account_id": 1, "amount": 10, "description": "Pago de servicios"}' \
   http://localhost:3000/api/v1/accounts/10/transactions -i
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"first_name": "Eduardo Ismael", "last_name": "Garcia", "email": "eduardo78d@gmail.com", "pin": "1234"}' \
+  http://bankfacilito.xyz/api/v1/register -i
+

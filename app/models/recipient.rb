@@ -12,4 +12,16 @@
 class Recipient < ApplicationRecord
   belongs_to :user
   belongs_to :account
+
+  validates :account, uniqueness: { scope: :user, message: "El destinatario ya existe" }
+
+  attr_accessor :clabe
+
+  before_validation :set_account_from_clabe, unless: :account
+
+  private
+
+  def set_account_from_clabe
+    self.account = Account.find_by(clabe: clabe) if clabe
+  end
 end

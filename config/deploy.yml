@@ -1,17 +1,11 @@
 service: bankfacilito
-image: docker-username/my-app
-
-ssh:
-  user: root
-  port: 22
+image: eduardogpg/bankfacilito
 
 servers:
-  web:
-    - 157.245.122.229
+  - 147.182.131.19
+  - 157.245.122.229
 
 proxy:
-  ssl: true
-  host: 157.245.122.229
   app_port: 3000
 
 registry:
@@ -20,7 +14,7 @@ registry:
     - KAMAL_REGISTRY_PASSWORD
 
 builder:
-  arch: arm64
+  arch: amd64
   local: true
   dockerfile: Dockerfile
   context: "."
@@ -28,4 +22,3 @@ builder:
 env:
   secret:
     - RAILS_MASTER_KEY
-
