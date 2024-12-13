@@ -8,8 +8,10 @@ class TransactionService
     validate_transfer(origin_account, recipient_account, amount)
 
     ActiveRecord::Base.transaction do
+      recipient_type = recipient_account.account_type.to_sym
+      transaction_type_dest = recipient_type == :service ? :service_payment : :deposit
       make_transaction(amount, origin_account, :withdraw, description)
-      make_transaction(amount, recipient_account, :deposit, description)
+      make_transaction(amount, recipient_account, transaction_type_dest, description)
     end
   end
 

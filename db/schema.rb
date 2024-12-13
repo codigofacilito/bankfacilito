@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_28_025314) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_12_141131) do
   create_table "accounts", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.string "account_number"
     t.integer "account_type"
     t.integer "balance"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_025314) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "default", default: false
+    t.integer "account_type", default: 0, null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -33,12 +34,21 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_025314) do
     t.index ["user_id"], name: "index_recipients_on_user_id"
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_services_on_account_id"
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer "account_id", null: false
-    t.integer "transaction_type"
-    t.decimal "amount"
-    t.text "description"
-    t.integer "status"
+    t.integer "transaction_type", default: 0
+    t.decimal "amount", default: "0.0"
+    t.text "description", default: ""
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_transactions_on_account_id"
@@ -57,5 +67,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_28_025314) do
   add_foreign_key "accounts", "users"
   add_foreign_key "recipients", "accounts"
   add_foreign_key "recipients", "users"
+  add_foreign_key "services", "accounts"
   add_foreign_key "transactions", "accounts"
 end
