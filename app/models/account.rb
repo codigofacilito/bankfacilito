@@ -12,20 +12,21 @@
 #  default        :boolean          default(FALSE)
 #
 class Account < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :transactions
 
   after_create :set_default, if: :default?
   
-  before_validation :generate_clabe
-  before_validation :generate_account_number
+  before_validation :generate_clabe, on: :create
+  before_validation :generate_account_number, on: :create
   
   validates :clabe, presence: true, uniqueness: true
   validates :account_number, presence: true, uniqueness: true
+  
+  enum :account_type, { user: 0, service: 1 }, default: :user
 
-  def transfer!(recipient_account_number, amount, description = nil)
-    recipient_account = Account.find_by(account_number: recipient_account_number)
-    TransactionService.new.transfer!(self, recipient_account_number, amount, description)
+  def transfer!(recipient_account, amount, description = nil)
+    TransactionService.new.transfer!(self, recipient_account, amount, description)
   end
   
   def default?
@@ -38,6 +39,11 @@ class Account < ApplicationRecord
   end
 
   def deposit!(amount)
+    self.balance += amount
+    save!
+  end
+
+  def service_payment!(amount)
     self.balance += amount
     save!
   end
