@@ -7,24 +7,24 @@ class TransactionsController < ApplicationController
 
   def create
     recipient_account_id = params[:recipient_account_id]
-    amount = params[:amount].to_f
+    @amount = params[:amount].to_f
     description = params[:description]
 
-    recipient_account = Account.find_by(id: recipient_account_id)
+    @recipient_account = Account.find_by(id: recipient_account_id)
 
-    if recipient_account.nil?
+    if @recipient_account.nil?
       render json: { error: 'La cuenta receptora no existe' }, status: :not_found
       return
     end
 
-    if amount <= 0
+    if @amount <= 0
       render json: { error: 'El monto debe ser mayor a cero' }, status: :unprocessable_entity
       return
     end
 
     begin
-      @account.transfer!(recipient_account, amount, description)
-      render json: { message: 'Transferencia exitosa' }, status: :created
+      @account.transfer!(@recipient_account, @amount, description)
+      render :create, status: :ok
     rescue AccountNotFoundError, InvalidTransactionError => e
       render json: { error: e.message }, status: :unprocessable_entity
     rescue InsufficientFundsError => e

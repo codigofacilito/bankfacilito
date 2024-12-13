@@ -11,8 +11,14 @@ curl -X POST \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <Token>" \
-  -d '{"recipient_account_id": 1, "amount": 10, "description": "Pago de servicios"}' \
+  -d '{"recipient_account_id": 1, "amount": 10, "description": "Transferencia"}' \
   http://localhost:3000/api/v1/accounts/10/transactions -i
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <Token>" \
+  -d '{"service_id": 6, "amount": 10, "description": "Pago de servicios"}' \
+  http://localhost:3000/api/v1/accounts/1/pay_service -i
 
 curl -X POST \
   -H "Content-Type: application/json" \
