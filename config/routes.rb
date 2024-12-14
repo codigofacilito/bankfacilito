@@ -13,6 +13,8 @@ Rails.application.routes.draw do
         resources :transactions, only: [:index, :create]
       end
       resources :recipients, only: %i[index create]
+      resources :services, only: [:index]
+      post 'accounts/:id/pay_service', to: 'accounts#pay_service'
 
   
       post 'register', to: 'users#register'

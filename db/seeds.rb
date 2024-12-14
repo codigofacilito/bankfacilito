@@ -9,3 +9,11 @@
 #   end
 
 # Create the default Account
+
+agua_account = Account.create!(balance: 0, account_type: :service)
+luz_account = Account.create!(balance: 0, account_type: :service)
+internet_account = Account.create!(balance: 0, account_type: :service)
+
+Service.create!(name: 'Agua', description: 'Pago del servicio de agua', account: agua_account)
+Service.create!(name: 'Luz', description: 'Pago del servicio de luz', account: luz_account)
+Service.create!(name: 'Internet', description: 'Pago del servicio de internet', account: internet_account)

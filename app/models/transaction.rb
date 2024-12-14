@@ -15,7 +15,7 @@ class Transaction < ApplicationRecord
   belongs_to :account
 
   enum :status, [:pending, :completed, :failed]
-  enum :transaction_type, [:deposit, :withdraw, :transfer]
+  enum :transaction_type, [:deposit, :withdraw, :transfer, :service_payment]
 
   after_create :update_balances, if: :pending?
 
@@ -24,5 +24,6 @@ class Transaction < ApplicationRecord
   def update_balances
     return account.deposit!(amount) if deposit?
     return account.withdraw!(amount) if withdraw?
+    return account.service_payment!(amount) if service_payment?
   end
 end
