@@ -24,7 +24,7 @@ curl -X POST \
     "id": 4,
     "first_name": "<First Name>",
     "last_name": "<Last Nam>e",
-    "email": "<Emai.>"
+    "email": "<Email>"
   },
   "account": {
     "account_number": "<Account number>",
@@ -42,7 +42,7 @@ curl -X POST \
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"email": "Userv2@example.com", "pin": "1234"}' \
+  -d '{"email": "<Email>", "pin": "<PIN>"}' \
   http://localhost:3000/api/v1/login -i
 ```
 
@@ -67,8 +67,8 @@ curl -X GET \
 ```json
 [
   {
-    "id": <Id>,
-    "user_id": <Id>,
+    "id": <id>,
+    "user_id": <id>,
     "account_number": "<Numer>",
     "clabe": "<CLABE>",
     "balance": 1000
@@ -94,11 +94,11 @@ curl -X POST \
 {
   "id": 9,
   "user_id": 3,
-  "account_number": "9265363267",
+  "account_number": "<Account Number>",
   "balance": 0,
-  "clabe": "104325113235609394",
-  "created_at": "2024-12-16T21:02:49.117Z",
-  "updated_at": "2024-12-16T21:02:49.117Z",
+  "clabe": "<Clabe>",
+  "created_at": "<Created At>",
+  "updated_at": "<Updated At>",
   "default": false,
   "account_type": "user"
 }
@@ -120,13 +120,13 @@ curl -X GET \
 **Example Response:**
 ```json
 {
-  "id": 8,
-  "user_id": 3,
-  "account_number": "2687243901",
-  "balance": 0,
-  "clabe": "138931635507595959",
-  "created_at": "2024-12-16T21:01:24.660Z",
-  "updated_at": "2024-12-16T21:01:24.660Z",
+  "id": <id>,
+  "user_id": <id>,
+  "account_number": "<Account Number>",
+  "balance": <Balance>,
+  "clabe": "<CLABE>",
+  "created_at": "<Created at>",
+  "updated_at": "<Updated at>",
   "default": false,
   "account_type": "user"
 }
@@ -146,19 +146,19 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{ "recipient": {"clabe": "104325113235609394", "name": "Example"} }' \
+  -d '{ "recipient": {"clabe": "<CLABE>", "name": "<Name>"} }' \
   http://localhost:3000/api/v1/recipients/ -i
 ```
 
 **Example Response:**
 ```json
 {
-  "id": 3,
-  "user_id": 2,
-  "name": "Eduardo Isamel",
-  "account_id": 9,
-  "created_at": "2024-12-16T21:03:22.970Z",
-  "updated_at": "2024-12-16T21:03:22.970Z"
+  "id": <id>,
+  "user_id": <id>,
+  "name": "<Name>",
+  "account_id": <id>,
+  "created_at": "<Created at>",
+  "updated_at": "<Updated at>"
 }
 ```
 
@@ -178,9 +178,7 @@ curl -X GET \
 **Example Response:**
 ```json
 [
-  {"id": 1, "name": null, "account_id": 2},
-  {"id": 2, "name": "User1 Mine", "account_id": 4},
-  {"id": 3, "name": "Eduardo Isamel", "account_id": 9}
+  {"id": <id>, "name": "<Name>", "account_id": <id>}
 ]
 ```
 
@@ -228,7 +226,7 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{"recipient_account_id": 3, "amount": 10, "description": "Transferencia"}' \
+  -d '{"recipient_account_id": <id>, "amount": <Amount>, "description": "Transferencia"}' \
   http://localhost:3000/api/v1/accounts/2/transactions -i
 ```
 
@@ -236,12 +234,12 @@ curl -X POST \
 ```json
 {
   "message": "Transferencia realizada con éxito",
-  "amount": 10.0,
+  "amount": <Amount>,
   "source_account": {
-    "account_number": "7529739178"
+    "account_number": "<Account number>"
   },
   "recipient_account": {
-    "account_number": "9596713885"
+    "account_number": "<Account number>"
   }
 }
 ```
@@ -259,5 +257,5 @@ curl -X POST \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{"service_id": 6, "amount": 10, "description": "Pago de servicios"}' \
+  -d '{"service_id": <id>, "amount": <Amount>, "description": "<Description>"}' \
   http://localhost:3000/api/v1/accounts/1/pay_service -i
