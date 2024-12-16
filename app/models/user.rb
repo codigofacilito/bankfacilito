@@ -13,6 +13,7 @@
 #
 class User < ApplicationRecord
   has_many :accounts
+  has_many :recipients
   has_one :account, -> { where(default: true) }, class_name: 'Account'
   has_secure_password :pin, validations: false
 

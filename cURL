@@ -1,27 +1,73 @@
+# Users
+
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"first_name": "Eduardo Ismael", "last_name": "Garcia", "email": "eduardo78d@gmail.com", "pin": "1234"}' \
+  -d '{"first_name": "<Firt Name>", "last_name": "<Last Name>", "email": "<Email>", "pin": "1234"}' \
   http://localhost:3000/api/v1/register -i
 
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"account_number": "5568462617", "pin": "1234"}' \
-  http://localhost:3000/api/v1/login -i
+  -d '{ "email": "Userv2@example.com", "pin": "1234"}' \
+  http://localhost:3000/api/v1/login -i  
+
+
+# Accounts
+
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE3MzQ0Njg5Njl9.nz0FeeS9V40hCRYNbW9D5riZ43V8hf1jo0nTq9gJKI4" \
+  http://localhost:3000/api/v1/accounts -i 
 
 curl -X POST \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer <Token>" \
-  -d '{"recipient_account_id": 1, "amount": 10, "description": "Transferencia"}' \
-  http://localhost:3000/api/v1/accounts/10/transactions -i
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE3MzQ0Njg5Njl9.nz0FeeS9V40hCRYNbW9D5riZ43V8hf1jo0nTq9gJKI4" \
+  http://localhost:3000/api/v1/accounts/ -i 
+
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE3MzQ0Njg5Njl9.nz0FeeS9V40hCRYNbW9D5riZ43V8hf1jo0nTq9gJKI4" \
+  http://localhost:3000/api/v1/accounts/1 -i
+
+# Recipients
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE3MzQ0NjY5Mjh9.sE1FtBBATYzhzp4X29mLwd6VXvsdFpjywrO8QeLmvuU" \
+  -d '{ "recipient": {"clabe": "104325113235609394", "name": "Eduardo Isamel"} }' \
+  http://localhost:3000/api/v1/recipients/ -i
+
+
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE3MzQ0NjY5Mjh9.sE1FtBBATYzhzp4X29mLwd6VXvsdFpjywrO8QeLmvuU" \
+  http://localhost:3000/api/v1/recipients/ -i
+
+# Services
+
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE3MzQ0NjY5Mjh9.sE1FtBBATYzhzp4X29mLwd6VXvsdFpjywrO8QeLmvuU" \
+  http://localhost:3000/api/v1/services/ -i
+
+
+# Transactions
+
+curl -X GET \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE3MzQ0NjY5Mjh9.sE1FtBBATYzhzp4X29mLwd6VXvsdFpjywrO8QeLmvuU" \
+  http://localhost:3000/api/v1/accounts/2/transactions -i
+
+
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE3MzQ0NjY5Mjh9.sE1FtBBATYzhzp4X29mLwd6VXvsdFpjywrO8QeLmvuU" \
+  -d '{"recipient_account_id": 3, "amount": 10, "description": "Transferencia"}' \
+  http://localhost:3000/api/v1/accounts/2/transactions -i
+
+# Pay Service
 
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <Token>" \
   -d '{"service_id": 6, "amount": 10, "description": "Pago de servicios"}' \
   http://localhost:3000/api/v1/accounts/1/pay_service -i
-
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"first_name": "Eduardo Ismael", "last_name": "Garcia", "email": "eduardo78d@gmail.com", "pin": "1234"}' \
-  http://bankfacilito.xyz/api/v1/register -i
-

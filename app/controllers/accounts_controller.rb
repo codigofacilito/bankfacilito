@@ -1,10 +1,16 @@
 class AccountsController < ApplicationController
+  
+  def index
+    @accounts = current_user.accounts
+  end
+
   def show
-    @account = Account.find_by(id: params[:id])
+    @account = current_user.accounts.find_by(id: params[:id])
+    return render json: { errors: 'Cuenta no encontrada' }, status: :not_found unless @account
   end
 
   def create
-    @account = Account.create(account_params)
+    @account = @current_user.accounts.build
 
     if @account.save
       render json: @account, status: :created

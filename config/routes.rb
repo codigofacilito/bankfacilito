@@ -9,13 +9,12 @@ Rails.application.routes.draw do
 
   scope :api do
     scope :v1 do
-      resources :accounts, only: %i[show create] do
+      resources :accounts, only: %i[show create index] do
         resources :transactions, only: [:index, :create]
       end
       resources :recipients, only: %i[index create]
       resources :services, only: [:index]
       post 'accounts/:id/pay_service', to: 'accounts#pay_service'
-
   
       post 'register', to: 'users#register'
       post 'login', to: 'users#login'

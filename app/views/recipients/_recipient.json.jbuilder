@@ -1,1 +1,1 @@
-json.extract! recipient, :name, :account_id
+json.extract! recipient, :id, :name, :account_id

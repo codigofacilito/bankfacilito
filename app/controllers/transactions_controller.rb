@@ -3,24 +3,14 @@ class TransactionsController < ApplicationController
   before_action :set_transactions, only: :index
 
   def index
+    @transactions = @account.transactions
   end
 
   def create
-    recipient_account_id = params[:recipient_account_id]
     @amount = params[:amount].to_f
+    @recipient = current_user.recipients.find_by(id: params[:recipient_id])
+    @recipient_account = @recipient.account
     description = params[:description]
-
-    @recipient_account = Account.find_by(id: recipient_account_id)
-
-    if @recipient_account.nil?
-      render json: { error: 'La cuenta receptora no existe' }, status: :not_found
-      return
-    end
-
-    if @amount <= 0
-      render json: { error: 'El monto debe ser mayor a cero' }, status: :unprocessable_entity
-      return
-    end
 
     begin
       @account.transfer!(@recipient_account, @amount, description)
@@ -37,7 +27,6 @@ class TransactionsController < ApplicationController
 
   private
 
-  # TODO: Verify user from JWT once implemented
   def set_account
     @account = current_user.accounts.find_by(id: params[:account_id])
     unless @account

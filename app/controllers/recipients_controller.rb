@@ -1,12 +1,11 @@
 class RecipientsController < ApplicationController
+  
   def index
-    @recipients = Recipient.where(user: current_user)
+    @recipients = current_user.recipients
   end
 
   def create
-    @recipient = Recipient.new(recipient_params)
-
-    @recipient.user = current_user
+    @recipient = current_user.recipients.build(recipient_params)
 
     if @recipient.save
       render json: @recipient, status: :created
