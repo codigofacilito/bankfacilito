@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       resources :accounts, only: %i[show create index] do
         resources :transactions, only: [:index, :create]
       end
-      resources :recipients, only: %i[index create]
+      resources :recipients, only: %i[index create destroy]
       resources :services, only: [:index]
       post 'accounts/:id/pay_service', to: 'accounts#pay_service'
   

@@ -49,12 +49,13 @@ curl -X POST \
 ### Update User
 **Endpoint:** `PUT /api/v1/users/<id>/`
 
-**Description:** Logs in a user.
+**Description:** Update the user.
 
 **Request:**
 ```bash
 curl -X PUT \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <JWT Token>" \
   -d '{"first_name": "<First Name>", "last_name": "<Last Name>", "email": "<Email>"}' \
   http://localhost:3000//api/v1/users/<id>/ -i
 ```
@@ -193,6 +194,20 @@ curl -X GET \
 [
   {"id": <id>, "name": "<Name>", "account_id": <id>}
 ]
+```
+
+
+### Delete recipients
+**Endpoint:** `DELETE /api/v1/recipients/<id>`
+
+**Description:** Delete a particular recipient
+
+**Request:**
+```bash
+curl -X DELETE \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <JWT Token>" \
+  http://localhost:3000/api/v1/recipients/<id> -i
 ```
 
 ---

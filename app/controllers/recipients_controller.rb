@@ -14,6 +14,18 @@ class RecipientsController < ApplicationController
     end
   end
 
+  def destroy
+    @recipient = current_user.recipients.find_by(id: params[:id])
+    
+    unless @recipient
+      render json: { errors: 'No se encontró el destinatario' }, status: :not_found
+      return
+    end
+
+    @recipient.destroy
+    render json: { message: 'Destinatario eliminado exitosamente' }
+  end
+
   private
 
   def recipient_params

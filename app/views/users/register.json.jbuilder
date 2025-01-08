@@ -6,5 +6,5 @@ json.user do
 end
 
 json.account do
-  json.extract! @account, :account_number, :balance
+  json.extract! @account, :account_number, :balance, :clabe
 end
