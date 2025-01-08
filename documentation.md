@@ -21,14 +21,14 @@ curl -X POST \
   "message": "Usuario registrado exitosamente",
   "token": "<JWT Token>",
   "user": {
-    "id": 4,
+    "id": <id>,
     "first_name": "<First Name>",
     "last_name": "<Last Nam>e",
     "email": "<Email>"
   },
   "account": {
     "account_number": "<Account number>",
-    "balance": 1000
+    "balance": <Balance>
   }
 }
 ```
@@ -42,7 +42,7 @@ curl -X POST \
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"email": "<Email>", "pin": "<PIN>"}' \
+  -d '{"account_number": "<Integer>", "pin": "<PIN>"}' \
   http://localhost:3000/api/v1/login -i
 ```
 
@@ -71,7 +71,7 @@ curl -X GET \
     "user_id": <id>,
     "account_number": "<Numer>",
     "clabe": "<CLABE>",
-    "balance": 1000
+    "balance": <Balance>
   },
 ]
 ```
@@ -127,7 +127,7 @@ curl -X GET \
   "clabe": "<CLABE>",
   "created_at": "<Created at>",
   "updated_at": "<Updated at>",
-  "default": false,
+  "default": <Bool>,
   "account_type": "user"
 }
 ```
