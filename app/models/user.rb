@@ -20,7 +20,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :pin, presence: true, length: { is: 4 }, numericality: { only_integer: true }
+  validates :pin, length: { is: 4 },  numericality: { only_integer: true }
 
   after_create :create_default_account
 

@@ -46,6 +46,19 @@ curl -X POST \
   http://localhost:3000/api/v1/login -i
 ```
 
+### Update User
+**Endpoint:** `PUT /api/v1/users/<id>/`
+
+**Description:** Logs in a user.
+
+**Request:**
+```bash
+curl -X PUT \
+  -H "Content-Type: application/json" \
+  -d '{"first_name": "<First Name>", "last_name": "<Last Name>", "email": "<Email>"}' \
+  http://localhost:3000//api/v1/users/<id>/ -i
+```
+
 ---
 
 ## Accounts

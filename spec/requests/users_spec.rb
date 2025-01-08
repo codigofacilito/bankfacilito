@@ -24,7 +24,6 @@ RSpec.describe 'Users API', type: :request do
         post endpoint, params: valid_attributes
         expect(response).to have_http_status(201)
       end
-
     end
 
   end
@@ -36,7 +35,7 @@ RSpec.describe 'Users API', type: :request do
   
     context 'with valid credentials' do
       it 'logs in successfully' do
-        post  endpoint, params: { account_number: account.account_number, pin: '1234' }
+        post endpoint, params: { account_number: account.account_number, pin: '1234' }
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['message']).to eq('Inicio de sesión exitoso')
       end
@@ -56,5 +55,22 @@ RSpec.describe 'Users API', type: :request do
       end
     end
   end
-  
+
+  describe 'PUT /update' do
+    let(:user) { create(:user, pin: '1234') }
+    let(:account) { create(:account, user: user) }
+
+    context 'when the request is valid' do
+      it 'updates the user' do
+        post '/api/v1/login', params: { account_number: account.account_number, pin: '1234' }
+        expect(response).to have_http_status(:ok)
+
+        put '/api/v1/update', params: { first_name: 'Cody', last_name: 'Facilito', email: 'ayuda@codigofacilito.com' }, headers: { 'Authorization' => JSON.parse(response.body)['token'] }
+
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)['user']['first_name']).to eq('Cody')
+        expect(JSON.parse(response.body)['user']['last_name']).to eq('Facilito')
+      end
+    end
+  end
 end

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       post 'login', to: 'users#login'
   
       get '/accounts/:account_id/transactions', to: 'transactions#index'
+
+      resources :users, only: [:update]
     end
   end
   

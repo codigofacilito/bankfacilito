@@ -7,7 +7,7 @@ migrate:
 	bundle exec rake db:migrate
 	annotate --models
 
-shell:
+console:
 	@echo "🚀 Running the console..."
 	bundle exec rails console
 
@@ -19,3 +19,7 @@ recreate_db:
 
 deploy:
 	kamal deploy
+
+test:
+	@echo "🚀 Running the tests..."
+	rspec
