@@ -46,6 +46,25 @@ curl -X POST \
   http://localhost:3000/api/v1/login -i
 ```
 
+**Example Response:**
+```json
+{
+  "message": "Inicio de sesión exitoso",
+  "token": "<JWT Token>",
+  "user": {
+    "id": <id>,
+    "first_name": "<First Name>",
+    "last_name": "<Last Nam>e",
+    "email": "<Email>"
+  },
+  "account": {
+    "id": <integer>,
+    "account_number": "<Account number>",
+    "balance": <Balance>
+  }
+}
+```
+
 ### Update User
 **Endpoint:** `PUT /api/v1/users/<id>/`
 

@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
     if account && account.user.authenticate_pin(params[:pin])
       @user = account.user
+      @account = account
       @token = JsonWebToken.encode(user_id: @user.id)
       render :login, status: :ok
     else
