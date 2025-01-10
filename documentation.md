@@ -273,8 +273,8 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{"recipient_account_id": <id>, "amount": <Amount>, "description": "Transferencia"}' \
-  http://localhost:3000/api/v1/accounts/2/transactions -i
+  -d '{"recipient_id": <id>, "amount": <Amount>, "description": "Transferencia"}' \
+  http://localhost:3000/api/v1/accounts/<Origin account>/transactions -i
 ```
 
 **Example Response:**
