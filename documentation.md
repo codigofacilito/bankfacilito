@@ -3,61 +3,91 @@
 ## Users
 
 ### Register User
-**Endpoint:** `POST /api/v1/register`
-
-**Description:** Registers a new user.
+**Endpoint:** `POST /api/v1/register`  
+**Description:** Registers a new user in the system.
 
 **Request:**
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"first_name": "<First Name>", "last_name": "<Last Name>", "email": "<Email>", "pin": "<Pin>"}' \
-  http://localhost:3000/api/v1/register -i
+  -d '{
+    "first_name": "string",
+    "last_name": "string",
+    "email": "string (valid email format)",
+    "pin": "string (4-6 digits)"
+  }' \
+  http://bankfacilito.xyz/api/v1/register -i
 ```
 
 **Example Response:**
 ```json
 {
-  "message": "Usuario registrado exitosamente",
-  "token": "<JWT Token>",
+  "message": "User registered successfully",
+  "token": "string (JWT Token)",
   "user": {
-    "id": <id>,
-    "first_name": "<First Name>",
-    "last_name": "<Last Nam>e",
-    "email": "<Email>"
+    "id": "integer",
+    "first_name": "string",
+    "last_name": "string",
+    "email": "string"
   },
   "account": {
-    "account_number": "<Account number>",
-    "balance": <Balance>
+    "account_number": "string",
+    "balance": "float"
   }
 }
 ```
 
-### Login User
-**Endpoint:** `POST /api/v1/login`
+---
 
-**Description:** Logs in a user.
+### Login User
+**Endpoint:** `POST /api/v1/login`  
+**Description:** Authenticates a user and provides an access token.
 
 **Request:**
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -d '{"account_number": "<Integer>", "pin": "<PIN>"}' \
-  http://localhost:3000/api/v1/login -i
+  -d '{
+    "account_number": "integer",
+    "pin": "string (4-6 digits)"
+  }' \
+  http://bankfacilito.xyz/api/v1/login -i
 ```
 
-### Update User
-**Endpoint:** `PUT /api/v1/users/<id>/`
+**Example Response:**
+```json
+{
+  "token": "string (JWT Token)"
+}
+```
 
-**Description:** Update the user.
+---
+
+### Update User
+**Endpoint:** `PUT /api/v1/users/{id}/`  
+**Description:** Updates user information.
 
 **Request:**
 ```bash
 curl -X PUT \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{"first_name": "<First Name>", "last_name": "<Last Name>", "email": "<Email>"}' \
-  http://localhost:3000//api/v1/users/<id>/ -i
+  -d '{
+    "first_name": "string",
+    "last_name": "string",
+    "email": "string (valid email format)"
+  }' \
+  http://bankfacilito.xyz/api/v1/users/{id}/ -i
+```
+
+**Example Response:**
+```json
+{
+  "id": "integer",
+  "first_name": "string",
+  "last_name": "string",
+  "email": "string"
+}
 ```
 
 ---
@@ -65,8 +95,7 @@ curl -X PUT \
 ## Accounts
 
 ### Get All Accounts
-**Endpoint:** `GET /api/v1/accounts`
-
+**Endpoint:** `GET /api/v1/accounts`  
 **Description:** Retrieves all accounts for the authenticated user.
 
 **Request:**
@@ -74,25 +103,26 @@ curl -X PUT \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/accounts -i
+  http://bankfacilito.xyz/api/v1/accounts -i
 ```
 
 **Example Response:**
 ```json
 [
   {
-    "id": <id>,
-    "user_id": <id>,
-    "account_number": "<Numer>",
-    "clabe": "<CLABE>",
-    "balance": <Balance>
-  },
+    "id": "integer",
+    "user_id": "integer",
+    "account_number": "string",
+    "clabe": "string",
+    "balance": "float"
+  }
 ]
 ```
 
-### Create New Account
-**Endpoint:** `POST /api/v1/accounts`
+---
 
+### Create New Account
+**Endpoint:** `POST /api/v1/accounts`  
 **Description:** Creates a new account for the authenticated user.
 
 **Request:**
@@ -100,27 +130,28 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/accounts/ -i
+  http://bankfacilito.xyz/api/v1/accounts/ -i
 ```
 
 **Example Response:**
 ```json
 {
-  "id": 9,
-  "user_id": 3,
-  "account_number": "<Account Number>",
-  "balance": 0,
-  "clabe": "<Clabe>",
-  "created_at": "<Created At>",
-  "updated_at": "<Updated At>",
-  "default": false,
-  "account_type": "user"
+  "id": "integer",
+  "user_id": "integer",
+  "account_number": "string",
+  "balance": "float",
+  "clabe": "string",
+  "created_at": "datetime",
+  "updated_at": "datetime",
+  "default": "boolean",
+  "account_type": "string"
 }
 ```
 
-### Get Account Details
-**Endpoint:** `GET /api/v1/accounts/{account_id}`
+---
 
+### Get Account Details
+**Endpoint:** `GET /api/v1/accounts/{account_id}`  
 **Description:** Retrieves details of a specific account.
 
 **Request:**
@@ -128,21 +159,21 @@ curl -X POST \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/accounts/1 -i
+  http://bankfacilito.xyz/api/v1/accounts/{account_id} -i
 ```
 
 **Example Response:**
 ```json
 {
-  "id": <id>,
-  "user_id": <id>,
-  "account_number": "<Account Number>",
-  "balance": <Balance>,
-  "clabe": "<CLABE>",
-  "created_at": "<Created at>",
-  "updated_at": "<Updated at>",
-  "default": <Bool>,
-  "account_type": "user"
+  "id": "integer",
+  "user_id": "integer",
+  "account_number": "string",
+  "balance": "float",
+  "clabe": "string",
+  "created_at": "datetime",
+  "updated_at": "datetime",
+  "default": "boolean",
+  "account_type": "string"
 }
 ```
 
@@ -151,8 +182,7 @@ curl -X GET \
 ## Recipients
 
 ### Create Recipient
-**Endpoint:** `POST /api/v1/recipients`
-
+**Endpoint:** `POST /api/v1/recipients`  
 **Description:** Adds a recipient for fund transfers.
 
 **Request:**
@@ -160,25 +190,31 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{ "recipient": {"clabe": "<CLABE>", "name": "<Name>"} }' \
-  http://localhost:3000/api/v1/recipients/ -i
+  -d '{
+    "recipient": {
+      "clabe": "string",
+      "name": "string"
+    }
+  }' \
+  http://bankfacilito.xyz/api/v1/recipients/ -i
 ```
 
 **Example Response:**
 ```json
 {
-  "id": <id>,
-  "user_id": <id>,
-  "name": "<Name>",
-  "account_id": <id>,
-  "created_at": "<Created at>",
-  "updated_at": "<Updated at>"
+  "id": "integer",
+  "user_id": "integer",
+  "name": "string",
+  "account_id": "integer",
+  "created_at": "datetime",
+  "updated_at": "datetime"
 }
 ```
 
-### Get All Recipients
-**Endpoint:** `GET /api/v1/recipients`
+---
 
+### Get All Recipients
+**Endpoint:** `GET /api/v1/recipients`  
 **Description:** Retrieves all recipients for the authenticated user.
 
 **Request:**
@@ -186,28 +222,32 @@ curl -X POST \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/recipients/ -i
+  http://bankfacilito.xyz/api/v1/recipients/ -i
 ```
 
 **Example Response:**
 ```json
 [
-  {"id": <id>, "name": "<Name>", "account_id": <id>}
+  {
+    "id": "integer",
+    "name": "string",
+    "account_id": "integer"
+  }
 ]
 ```
 
+---
 
-### Delete recipients
-**Endpoint:** `DELETE /api/v1/recipients/<id>`
-
-**Description:** Delete a particular recipient
+### Delete Recipient
+**Endpoint:** `DELETE /api/v1/recipients/{id}`  
+**Description:** Deletes a specific recipient.
 
 **Request:**
 ```bash
 curl -X DELETE \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/recipients/<id> -i
+  http://bankfacilito.xyz/api/v1/recipients/{id} -i
 ```
 
 ---
@@ -215,8 +255,7 @@ curl -X DELETE \
 ## Services
 
 ### Get Services
-**Endpoint:** `GET /api/v1/services`
-
+**Endpoint:** `GET /api/v1/services`  
 **Description:** Retrieves all available services.
 
 **Request:**
@@ -224,7 +263,7 @@ curl -X DELETE \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/services/ -i
+  http://bankfacilito.xyz/api/v1/services/ -i
 ```
 
 ---
@@ -232,8 +271,7 @@ curl -X GET \
 ## Transactions
 
 ### Get Account Transactions
-**Endpoint:** `GET /api/v1/accounts/{account_id}/transactions`
-
+**Endpoint:** `GET /api/v1/accounts/{account_id}/transactions`  
 **Description:** Retrieves all transactions for a specific account.
 
 **Request:**
@@ -241,12 +279,13 @@ curl -X GET \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://localhost:3000/api/v1/accounts/2/transactions -i
+  http://bankfacilito.xyz/api/v1/accounts/{account_id}/transactions -i
 ```
 
-### Create Transaction
-**Endpoint:** `POST /api/v1/accounts/{account_id}/transactions`
+---
 
+### Create Transaction
+**Endpoint:** `POST /api/v1/accounts/{account_id}/transactions`  
 **Description:** Creates a new transaction.
 
 **Request:**
@@ -254,20 +293,24 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{"recipient_account_id": <id>, "amount": <Amount>, "description": "Transferencia"}' \
-  http://localhost:3000/api/v1/accounts/2/transactions -i
+  -d '{
+    "recipient_account_id": "integer",
+    "amount": "float",
+    "description": "string"
+  }' \
+  http://bankfacilito.xyz/api/v1/accounts/{account_id}/transactions -i
 ```
 
 **Example Response:**
 ```json
 {
-  "message": "Transferencia realizada con éxito",
-  "amount": <Amount>,
+  "message": "Transaction completed successfully",
+  "amount": "float",
   "source_account": {
-    "account_number": "<Account number>"
+    "account_number": "string"
   },
   "recipient_account": {
-    "account_number": "<Account number>"
+    "account_number": "string"
   }
 }
 ```
@@ -276,8 +319,7 @@ curl -X POST \
 
 ## Pay Service
 
-**Endpoint:** `POST /api/v1/accounts/{account_id}/pay_service`
-
+**Endpoint:** `POST /api/v1/accounts/{account_id}/pay_service`  
 **Description:** Pays for a service using a specific account.
 
 **Request:**
@@ -285,5 +327,9 @@ curl -X POST \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  -d '{"service_id": <id>, "amount": <Amount>, "description": "<Description>"}' \
-  http://localhost:3000/api/v1/accounts/1/pay_service -i
+  -d '{
+    "service_id": "integer",
+    "amount": "float",
+    "description": "string"
+  }' \
+  http://bankfacilito.xyz/api/v1/accounts/{account_id}/pay_service -i

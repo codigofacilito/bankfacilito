@@ -35,6 +35,6 @@ class TransactionsController < ApplicationController
   end
 
   def set_transactions
-    @transactions = @account.transactions.order(:created_at).page params[:page]
+    @transactions = @account.transactions.order(:created_at)
   end
 end
