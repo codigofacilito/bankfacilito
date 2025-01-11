@@ -2,7 +2,7 @@ service: bankfacilito
 image: eduardogpg/bankfacilito
 
 servers:
-  - 157.245.122.229
+  - 147.182.131.19
 
 proxy:
   app_port: 3000

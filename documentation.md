@@ -16,7 +16,7 @@ curl -X POST \
     "email": "string (valid email format)",
     "pin": "string (4-6 digits)"
   }' \
-  http://bankfacilito.xyz/api/v1/register -i
+  http://localhost:3000/api/v1/register -i
 ```
 
 **Example Response:**
@@ -51,7 +51,7 @@ curl -X POST \
     "account_number": "integer",
     "pin": "string (4-6 digits)"
   }' \
-  http://bankfacilito.xyz/api/v1/login -i
+  http://localhost:3000/api/v1/login -i
 ```
 
 **Example Response:**
@@ -77,7 +77,7 @@ curl -X PUT \
     "last_name": "string",
     "email": "string (valid email format)"
   }' \
-  http://bankfacilito.xyz/api/v1/users/{id}/ -i
+  http://localhost:3000/api/v1/users/{id}/ -i
 ```
 
 **Example Response:**
@@ -103,7 +103,7 @@ curl -X PUT \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/accounts -i
+  http://localhost:3000/api/v1/accounts -i
 ```
 
 **Example Response:**
@@ -130,7 +130,7 @@ curl -X GET \
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/accounts/ -i
+  http://localhost:3000/api/v1/accounts/ -i
 ```
 
 **Example Response:**
@@ -159,7 +159,7 @@ curl -X POST \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/accounts/{account_id} -i
+  http://localhost:3000/api/v1/accounts/{account_id} -i
 ```
 
 **Example Response:**
@@ -196,7 +196,7 @@ curl -X POST \
       "name": "string"
     }
   }' \
-  http://bankfacilito.xyz/api/v1/recipients/ -i
+  http://localhost:3000/api/v1/recipients/ -i
 ```
 
 **Example Response:**
@@ -222,7 +222,7 @@ curl -X POST \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/recipients/ -i
+  http://localhost:3000/api/v1/recipients/ -i
 ```
 
 **Example Response:**
@@ -247,7 +247,7 @@ curl -X GET \
 curl -X DELETE \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/recipients/{id} -i
+  http://localhost:3000/api/v1/recipients/{id} -i
 ```
 
 ---
@@ -263,7 +263,7 @@ curl -X DELETE \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/services/ -i
+  http://localhost:3000/api/v1/services/ -i
 ```
 
 ---
@@ -279,7 +279,7 @@ curl -X GET \
 curl -X GET \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
-  http://bankfacilito.xyz/api/v1/accounts/{account_id}/transactions -i
+  http://localhost:3000/api/v1/accounts/{account_id}/transactions -i
 ```
 
 ---
@@ -298,7 +298,7 @@ curl -X POST \
     "amount": "float",
     "description": "string"
   }' \
-  http://bankfacilito.xyz/api/v1/accounts/{account_id}/transactions -i
+  http://localhost:3000/api/v1/accounts/{account_id}/transactions -i
 ```
 
 **Example Response:**
@@ -332,4 +332,4 @@ curl -X POST \
     "amount": "float",
     "description": "string"
   }' \
-  http://bankfacilito.xyz/api/v1/accounts/{account_id}/pay_service -i
+  http://localhost:3000/api/v1/accounts/{account_id}/pay_service -i

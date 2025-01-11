@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
          render json: { errors: 'Token inválido' }, status: :unauthorized
        end
      else
-       render json: { errors: 'Token no proporcionado' }, status: :unauthorized
+       render json: { errors: 'Token no proporcionado.' }, status: :unauthorized
      end
   end
 end
