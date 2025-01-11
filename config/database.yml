@@ -29,5 +29,7 @@ test:
 # ensure the database is located in a persisted volume.
 production:
   <<: *default
-  database: db/production.sqlite3
-  # database: path/to/persistent/storage/production.sqlite3
+  adapter: sqlite3
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  database: /app/db/production.sqlite3
