@@ -49,7 +49,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{
     "account_number": "integer",
-    "pin": "string (4-6 digits)"
+    "pin": "string (4 digits)"
   }' \
   http://bankfacilito.xyz/api/v1/login -i
 ```
