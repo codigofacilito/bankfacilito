@@ -31,10 +31,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @current_user.update(user_params)
+    @user = User.find_by(id: params[:id])
+
+    return render json: { errors: 'Solicitud inválida' }, status: :bad_request unless @user && @user.id == @current_user.id
+
+    if @user.update(user_params)
       render :update, status: :ok
     else
-      render json: { errors: @current_user.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
