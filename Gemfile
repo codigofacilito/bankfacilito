@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.2"
+gem "rails", "~> 8.0.2"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -44,11 +44,11 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   
-  gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
-  
   gem 'rspec-rails', '~> 6.0'
   gem 'factory_bot_rails'
   gem 'kaminari' # Paginate
+  # Updated to use annotaterb which supports Rails 8
+  gem 'annotaterb'
 end
 
 

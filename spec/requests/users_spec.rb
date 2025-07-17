@@ -16,12 +16,12 @@ RSpec.describe 'Users API', type: :request do
     context 'when the request is valid' do
       it 'Create a new User' do
         expect {
-          post endpoint, params: valid_attributes
+          post endpoint, params: valid_attributes, headers: { 'Content-Type': 'application/json' }, as: :json
         }.to change(User, :count).by(1)
       end
 
       it 'returns status code 201' do
-        post endpoint, params: valid_attributes
+        post endpoint, params: valid_attributes, headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(201)
       end
     end
@@ -35,7 +35,7 @@ RSpec.describe 'Users API', type: :request do
   
     context 'with valid credentials' do
       it 'logs in successfully' do
-        post endpoint, params: { account_number: account.account_number, pin: '1234' }
+        post endpoint, params: { account_number: account.account_number, pin: '1234' }, headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['message']).to eq('Inicio de sesión exitoso')
       end
@@ -43,13 +43,13 @@ RSpec.describe 'Users API', type: :request do
   
     context 'with invalid credentials' do
       it 'rejects login with incorrect PIN' do
-        post  endpoint, params: { account_number: account.account_number, pin: '0000' }
+        post  endpoint, params: { account_number: account.account_number, pin: '0000' }, headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)['errors']).to eq('Número de cuenta o PIN incorrecto')
       end
   
       it 'rejects login with incorrect account number' do
-        post  endpoint, params: { account_number: 'invalid', pin: '1234' }
+        post  endpoint, params: { account_number: 'invalid', pin: '1234' }, headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:unauthorized)
         expect(JSON.parse(response.body)['errors']).to eq('Número de cuenta o PIN incorrecto')
       end
@@ -62,10 +62,14 @@ RSpec.describe 'Users API', type: :request do
 
     context 'when the request is valid' do
       it 'updates the user' do
-        post '/api/v1/login', params: { account_number: account.account_number, pin: '1234' }
+        post '/api/v1/login', params: { account_number: account.account_number, pin: '1234' }, headers: { 'Content-Type': 'application/json' }, as: :json
         expect(response).to have_http_status(:ok)
-
-        put '/api/v1/update', params: { first_name: 'Cody', last_name: 'Facilito', email: 'ayuda@codigofacilito.com' }, headers: { 'Authorization' => JSON.parse(response.body)['token'] }
+        
+        response_body = JSON.parse(response.body)
+        user_id = response_body['user']['id']
+        token = response_body['token']
+        
+        put "/api/v1/users/#{user_id}", params: { first_name: 'Cody', last_name: 'Facilito', email: 'ayuda@codigofacilito.com' }, headers: { 'Authorization' => "Bearer #{token}", 'Content-Type': 'application/json' }, as: :json
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['user']['first_name']).to eq('Cody')
