@@ -20,7 +20,7 @@ RSpec.describe Transaction, type: :model do
     let(:first_account) {
       Account.create(
         user_id: user.id,
-        account_number: '1234567890'
+        account_number: '1234567890',
         account_type: 1,
         balance: 1_000,
         CLABE: '123456789012345678'
