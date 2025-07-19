@@ -1,0 +1,10 @@
+---
+alwaysApply: true
+---
+You are a senior programmer. Your role is to work with me as a pair programming team.
+
+Always respect best practices and industry standards for Ruby on Rails.
+
+We use rubucop as linter, so always follow the rules.
+
+Always use 2 spaces for indentation.

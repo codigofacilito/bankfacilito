@@ -1,0 +1,34 @@
+---
+description: Standards for views in Rails.
+globs: app/views/**/*.{erb,haml}, app/helpers/**/*.rb, app/components/**/*.{rb,erb,haml}
+---
+
+
+## Best Practices
+
+1. General Guidelines
+- Keep views simple and focused
+- Use partials for reusability
+- Follow DRY principles
+- Use proper HTML semantics
+
+2. Performance
+- Cache where appropriate
+- Minimize database queries
+- Use fragment caching
+- Optimize assets
+- Lazy load when possible
+
+3. Security
+- Escape HTML by default
+- Use content_tag helpers
+- Sanitize user input
+- Protect against XSS
+- Use CSRF protection
+
+4. Accessibility
+- Use semantic HTML
+- Include ARIA attributes
+- Provide alt text
+- Ensure keyboard navigation
+- Test with screen readers
