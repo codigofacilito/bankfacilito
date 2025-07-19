@@ -2,6 +2,9 @@ require_relative "boot"
 
 require "rails/all"
 
+# Add Sidekiq web interface
+require "sidekiq/web"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -28,5 +31,13 @@ module Bankfacilito
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Configure Sidekiq as the Active Job queue adapter
+    config.active_job.queue_adapter = :sidekiq
+
+    # Add middleware needed for Sidekiq web dashboard in API-only app
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionDispatch::Flash
   end
 end
