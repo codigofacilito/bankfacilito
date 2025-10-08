@@ -27,3 +27,4 @@ Always use 2 spaces for indentation.
 - Sanitize user input
 - Protect against XSS
 - Use CSRF protection
+- USe best practices
