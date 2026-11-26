@@ -25,7 +25,7 @@ the existing credentials when upgrading or rolling back.
 ## Tests and checks
 
 ```sh
-bin/rails db:prepare test test:system
+RAILS_ENV=test bin/rails db:prepare test test:system
 bundle exec rspec
 bin/rubocop
 bin/brakeman --no-pager
