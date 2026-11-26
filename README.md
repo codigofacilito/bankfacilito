@@ -1,24 +1,49 @@
-# README
+# Bankfacilito
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Requirements
 
-Things you may want to cover:
+- Ruby 3.2.3
+- Rails 8.1.4.1
+- Bundler 2.7.0
+- SQLite 3.8.0 or newer
 
-* Ruby version
+Install the locked dependencies with `bundle install`. The application uses
+SQLite in development and test, and production stores its database at
+`/app/db/production.sqlite3`; deployments must mount that path on persistent
+storage.
 
-* System dependencies
+## Setup
 
-* Configuration
+```sh
+bin/setup
+```
 
-* Database creation
+Set the Rails credentials required by the deployment before starting the
+application. The JWT signing secret is derived from `secret_key_base`; preserve
+the existing credentials when upgrading or rolling back.
 
-* Database initialization
+## Tests and checks
 
-* How to run the test suite
+```sh
+bin/rails db:prepare test test:system
+bundle exec rspec
+bin/rubocop
+bin/brakeman --no-pager
+bin/rails zeitwerk:check
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+System tests require Google Chrome. The test commands use the test database
+only; never run destructive database tasks against production.
 
-* Deployment instructions
+## Deployment and rollback
 
-* ...
+The Docker entrypoint runs `bin/rails db:prepare` before the production server
+starts. Review the migrations and back up the SQLite database, including its
+WAL state after writes are quiesced, before deploying. Verify the backup by
+restoring it to an isolated volume and comparing schema, row counts, balances,
+and transaction records.
+
+Monitor `/up`, application errors, login, and financial invariants after
+deployment. Re-deploying an older image does not reverse an applied migration:
+if rollback requires a database restore, stop writes, restore a verified backup,
+and reconcile or approve writes created after that backup.

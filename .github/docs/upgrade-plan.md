@@ -1,8 +1,8 @@
 Rails upgrade plan
 Overview
-Upgrade this API-only banking application from the locked Rails 8.0.2 to the latest stable, non-prerelease Rails release available when implementation begins. Preserve API contracts, authentication, existing balances and transaction records, and the current SQLite deployment model.
+Upgrade this API-only banking application from the locked Rails 8.0.2 to Rails 8.1.4.1, the latest stable, non-prerelease Rails release verified on 2026-11-26. Preserve API contracts, authentication, existing balances and transaction records, and the current SQLite deployment model.
 
-The exact latest release and its Ruby requirements could not be verified in this planning session. Resolve both from the official Rails release notes and RubyGems before changing dependencies; do not assume that the next minor release is necessarily the latest.
+RailsGems reports Rails 8.1.4.1 as requiring Ruby >= 3.2.0. The implementation retains the repository's Ruby 3.2.3 runtime and Bundler 2.7.0, which satisfy the target's declared requirements.
 
 Success criteria
 
@@ -11,10 +11,10 @@ Both existing test frameworks, lint, security scanning, eager loading, and produ
 Existing API responses and JWT authentication remain compatible; transfers, service payments, balance updates, and transaction rollback are verified.
 A production-like copy of the SQLite database upgrades without data loss, and deployment and rollback procedures are documented and rehearsed.
 Current state
-Gemfile constrains Rails to ~> 8.0.2; Gemfile.lock locks 8.0.2. config/application.rb uses config.load_defaults 8.0 and API-only mode.
+Gemfile constrains Rails to ~> 8.1.4.1; Gemfile.lock locks 8.1.4.1. config/application.rb uses config.load_defaults 8.0 and API-only mode to isolate default changes.
 .ruby-version, .tool-versions, and Dockerfile all specify Ruby 3.2.3; CI uses .ruby-version. The lockfile uses Bundler 2.7.0.
 SQLite is used in all environments; production points at /app/db/production.sqlite3, mounted via config/deploy.yml. The Docker entrypoint automatically runs db:prepare before starting the server.
-CI runs Rails/Minitest and system tests, RuboCop, and Brakeman, but does not run the RSpec suite under spec/; Makefile invokes RSpec separately.
+CI runs Rails/Minitest and system tests, RSpec, RuboCop, and Brakeman. The test job uses db:prepare so pending migrations are applied before either test framework runs; Makefile invokes RSpec separately.
 rspec-rails is constrained to ~> 6.0. Review compatibility of it and other Rails integrations, including factory_bot_rails, sqlite3, jbuilder, bootsnap, kaminari, annotaterb, and rubocop-rails-omakase.
 Banking flows use Active Record transactions, callbacks, and integer-backed enums. lib/json_web_token.rb signs tokens with secret_key_base. The development and test environments explicitly configure deprecations.
 Technical approach
