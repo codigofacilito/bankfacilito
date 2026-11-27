@@ -26,7 +26,7 @@ RSpec.describe TransactionService do
     end
 
     it 'rejects invalid amounts without changing balances or creating transactions' do
-      [ nil, '', 'abc', '10.501', '0.001', '0', '-1', 'NaN', 'Infinity', '10000000000000' ].each do |amount|
+      [ nil, '', 'abc', 10.5, '10.501', '0.001', '0', '-1', 'NaN', 'Infinity', '10000000000000' ].each do |amount|
         expect { described_class.new.transfer!(origin, recipient, amount) }.to raise_error(InvalidAmountError)
       end
 

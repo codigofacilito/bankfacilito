@@ -27,6 +27,16 @@ RSpec.describe 'Money transfers', type: :request do
     expect(Transaction.count).to eq(0)
   end
 
+  it 'rejects JSON decimal numbers that may have already lost precision' do
+    post "/api/v1/accounts/#{origin.id}/transactions",
+      params: { recipient_id: recipient.id, amount: 10.5 }, headers: headers, as: :json
+
+    expect(response).to have_http_status(:unprocessable_entity)
+    expect(origin.reload.balance).to eq(1000)
+    expect(recipient_account.reload.balance).to eq(20)
+    expect(Transaction.count).to eq(0)
+  end
+
   it 'validates precision for service payments' do
     service = create(:service, account: recipient_account)
     post "/api/v1/accounts/#{origin.id}/pay_service",

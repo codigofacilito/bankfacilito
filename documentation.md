@@ -270,9 +270,11 @@ curl -X GET \
 
 ## Transactions
 
-Amounts should be sent as decimal strings (for example, `"10.50"`), with at
-most two decimal places. Amounts must be positive and fit within 15 digits.
-Balances and amounts are returned as decimal strings.
+Send fractional amounts as decimal strings (for example, `"10.50"`), with at
+most two decimal places. JSON decimal numbers are rejected because they may
+lose precision during parsing; whole-number JSON integers are also accepted.
+Amounts must be positive and fit within 15 digits. Balances and amounts are
+returned as decimal strings.
 
 The money precision migration preserves existing whole-unit balances; it cannot
 recover cents lost by earlier transfers. Reconcile existing balances against

@@ -23,6 +23,8 @@ class TransactionService
   private
 
   def parse_amount(value)
+    raise InvalidAmountError, "Amount must be a decimal string or an exact number" if value.is_a?(Float)
+
     amount = BigDecimal(value.to_s, exception: false)
     unless amount&.finite? && amount.positive? && amount <= MAX_AMOUNT && amount == amount.round(2)
       raise InvalidAmountError, "Amount must be positive, fit within 15 digits, and have at most 2 decimal places"
