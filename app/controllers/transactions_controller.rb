@@ -7,15 +7,14 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @amount = params[:amount].to_f
     @recipient = current_user.recipients.find_by(id: params[:recipient_id])
     @recipient_account = @recipient.account
     description = params[:description]
 
     begin
-      @account.transfer!(@recipient_account, @amount, description)
+      @amount = @account.transfer!(@recipient_account, params[:amount], description)
       render :create, status: :ok
-    rescue AccountNotFoundError, InvalidTransactionError => e
+    rescue AccountNotFoundError, InvalidTransactionError, InvalidAmountError => e
       render json: { error: e.message }, status: :unprocessable_entity
     rescue InsufficientFundsError => e
       render json: { error: e.message }, status: :payment_required

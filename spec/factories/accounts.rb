@@ -5,7 +5,7 @@
 #  id             :integer          not null, primary key
 #  user_id        :integer
 #  account_number :string
-#  balance        :integer          default(0)
+#  balance        :decimal(15, 2)   default(0.0)
 #  clabe          :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
