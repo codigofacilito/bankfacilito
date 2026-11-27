@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_12_141131) do
+ActiveRecord::Schema[8.0].define(version: 2026_11_27_000000) do
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id"
     t.string "account_number"
-    t.integer "balance", default: 0
+    t.decimal "balance", precision: 15, scale: 2, default: "0.0"
     t.string "clabe"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_12_141131) do
   create_table "transactions", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "transaction_type", default: 0
-    t.decimal "amount", default: "0.0"
+    t.decimal "amount", precision: 15, scale: 2, default: "0.0"
     t.text "description", default: ""
     t.integer "status", default: 0
     t.datetime "created_at", null: false

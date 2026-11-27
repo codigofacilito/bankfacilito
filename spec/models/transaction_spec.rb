@@ -5,7 +5,7 @@
 #  id               :integer          not null, primary key
 #  account_id       :integer          not null
 #  transaction_type :integer          default("deposit")
-#  amount           :decimal(, )      default(0.0)
+#  amount           :decimal(15, 2)   default(0.0)
 #  description      :text             default("")
 #  status           :integer          default("pending")
 #  created_at       :datetime         not null

@@ -32,7 +32,7 @@ curl -X POST \
   },
   "account": {
     "account_number": "string",
-    "balance": "float"
+    "balance": "decimal string"
   }
 }
 ```
@@ -114,7 +114,7 @@ curl -X GET \
     "user_id": "integer",
     "account_number": "string",
     "clabe": "string",
-    "balance": "float"
+    "balance": "decimal string"
   }
 ]
 ```
@@ -139,7 +139,7 @@ curl -X POST \
   "id": "integer",
   "user_id": "integer",
   "account_number": "string",
-  "balance": "float",
+  "balance": "decimal string",
   "clabe": "string",
   "created_at": "datetime",
   "updated_at": "datetime",
@@ -168,7 +168,7 @@ curl -X GET \
   "id": "integer",
   "user_id": "integer",
   "account_number": "string",
-  "balance": "float",
+  "balance": "decimal string",
   "clabe": "string",
   "created_at": "datetime",
   "updated_at": "datetime",
@@ -270,6 +270,18 @@ curl -X GET \
 
 ## Transactions
 
+Send fractional amounts as decimal strings (for example, `"10.50"`), with at
+most two decimal places. JSON decimal numbers are rejected because they may
+lose precision during parsing; whole-number JSON integers are also accepted.
+Amounts must be positive and fit within 15 digits. Balances and amounts are
+returned as decimal strings.
+
+The money precision migration preserves existing whole-unit balances; it cannot
+recover cents lost by earlier transfers. Reconcile existing balances against
+the ledger separately. The migration stops if existing balances or transaction
+amounts cannot fit the new columns, so those records can be reviewed before
+running it again.
+
 ### Get Account Transactions
 **Endpoint:** `GET /api/v1/accounts/{account_id}/transactions`  
 **Description:** Retrieves all transactions for a specific account.
@@ -294,8 +306,8 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <JWT Token>" \
   -d '{
-    "recipient_account_id": "integer",
-    "amount": "float",
+    "recipient_id": "integer",
+    "amount": "10.50",
     "description": "string"
   }' \
   http://bankfacilito.xyz/api/v1/accounts/{account_id}/transactions -i
@@ -305,7 +317,7 @@ curl -X POST \
 ```json
 {
   "message": "Transaction completed successfully",
-  "amount": "float",
+  "amount": "10.50",
   "source_account": {
     "account_number": "string"
   },
@@ -329,7 +341,7 @@ curl -X POST \
   -H "Authorization: Bearer <JWT Token>" \
   -d '{
     "service_id": "integer",
-    "amount": "float",
+    "amount": "10.50",
     "description": "string"
   }' \
   http://bankfacilito.xyz/api/v1/accounts/{account_id}/pay_service -i

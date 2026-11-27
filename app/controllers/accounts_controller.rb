@@ -24,10 +24,10 @@ class AccountsController < ApplicationController
     return render json: { errors: 'Cuenta de origen no encontrada' }, status: :not_found unless @source_account
 
     recipient_account = Account.find(params[:recipient_account_id])
-    @amount = params[:amount].to_d
+    amount = params[:amount]
     description = params[:description]
 
-    perform_transfer(@source_account, recipient_account, @amount, description)
+    perform_transfer(@source_account, recipient_account, amount, description)
   end
 
   def pay_service
@@ -40,10 +40,10 @@ class AccountsController < ApplicationController
       return render json: { errors: 'Servicio no encontrado' }, status: :not_found
     end
   
-    @amount = params[:amount].to_d
+    amount = params[:amount]
     description = params[:description]
 
-    perform_transfer(@source_account, service.account, @amount, description)
+    perform_transfer(@source_account, service.account, amount, description)
   end
 
   private
@@ -53,7 +53,7 @@ class AccountsController < ApplicationController
   end
 
   def perform_transfer(source_account, recipient_account, amount, description)
-    source_account.transfer!(recipient_account, amount, description)
+    @amount = source_account.transfer!(recipient_account, amount, description)
     @recipient_account = recipient_account
     render :transfer, status: :ok
   rescue AccountNotFoundError => e
